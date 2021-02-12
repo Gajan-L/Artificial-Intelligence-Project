@@ -4,7 +4,7 @@ from count_time import timeit
 
 if __name__ == '__main__':
     # read graph file and create the graph
-    data_dir = "D:/Project/AI/Project 1/input/"
+    data_dir = "./input/"
     graph = create_graph(data_dir)
 
     # get the start and end points
