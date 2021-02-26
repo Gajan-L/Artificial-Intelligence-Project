@@ -88,11 +88,3 @@ def ac3(node, val, csp,node_list):
                     csp = backupCsp
                     return False
     return True
-
-
-
-def restore(flag, val,csp):
-    for node in flag:
-        node.domain.append(val)
-        csp[node.index] = -1
-    return
