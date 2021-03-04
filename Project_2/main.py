@@ -19,9 +19,9 @@ def main():
     f = open("input/input90.txt","r")
     Lines = f.readlines()
     f.close()
-    print("Reading files")
+    print("Reading file")
     graph, color = readFile(Lines)
-    print("CSP graph coloring.")
+    print("File reading complete! Start CSP graph coloring.")
     variables = graph.vertices()
     domains = {}
     for variable in variables:
@@ -35,6 +35,7 @@ def main():
     if solution is None:
         print("No solution!")
     else:
+        print("Result of graph coloring:")
         print(sorted(solution.items(), key=operator.itemgetter(0)))
     if check(solution, graph):
         print("Algorithm correct!")
