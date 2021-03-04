@@ -16,7 +16,7 @@ class GraphColoringConstraint(Constraint[int, int]):
         return assignment[self.vertex1] != assignment[self.vertex2]
 
 def main():
-    f = open("input/gc_1378296846561000.txt","r")
+    f = open("input/input90.txt","r")
     Lines = f.readlines()
     f.close()
     print("Reading files")
