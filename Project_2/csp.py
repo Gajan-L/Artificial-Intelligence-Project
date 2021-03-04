@@ -84,6 +84,7 @@ def backtracking_search(csp, assignment, domains):
             del assignment[next]
     return None
 
+# This function choose the next variable according to MRV heuristic
 def nextVariable(csp, assignment, domains):
     mrv = math.inf
     for v in csp.variables:
