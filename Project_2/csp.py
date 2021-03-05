@@ -85,12 +85,15 @@ def backtracking_search(csp, assignment, domains):
     return None
 
 # This function choose the next variable according to MRV heuristic
+# break ties by selecting the variable that is involved in more constraints
 def nextVariable(csp, assignment, domains):
     mrv = math.inf
     for v in csp.variables:
         if len(domains.get(v)) < mrv and assignment.get(v) == None:
             next = v
             mrv = len(domains.get(v))
+        if len(domains.get(v)) == mrv and assignment.get(v) == None and len(csp.constraints.get(v)) > len(csp.constraints.get(next)):
+            next = v
     return next
 
 # This function orders the domain values of the variable according to LCV heuristic
