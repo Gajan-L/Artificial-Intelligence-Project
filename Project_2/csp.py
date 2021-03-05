@@ -101,16 +101,13 @@ def orderDomainValues(csp, variable, domains):
     order = []
     color = []
     for value in domains[variable]:
-        lcv = math.inf
-        for i in csp.neighbors(variable):
-            temp = len(domains[i])
-            if value in domains[i]:
-                temp = temp - 1
-            if (temp < lcv):
-                lcv = temp
-        order.append([value, lcv])
-        o = sorted(order, key=lambda x: x[1], reverse=True)
-        color = [item[0] for item in o]
+        count = 0
+        for neighbor in csp.neighbors(variable):
+            if value in domains[neighbor]:
+                count += 1
+        order.append([value, count])
+    o = sorted(order, key=lambda x: x[1])
+    color = [item[0] for item in o]
     return color
 
 def ac3(csp, domains):
