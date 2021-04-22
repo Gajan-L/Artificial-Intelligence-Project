@@ -1,0 +1,9 @@
+You have successfully entered world:  0
+You current state is:  0:0
+reward: -0.1
+score increment:  -0.1
+new state:  {'x': 1, 'y': '0'}
+You are in world  0
+Your current state is  1:0
+[{'runId': '156', 'teamId': '1287', 'gworldId': '0', 'createTs': '2021-04-22 11:16:02', 'score': '-0.1', 'moves': '1'}]
+Your score:  0
