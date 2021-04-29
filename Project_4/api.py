@@ -44,7 +44,7 @@ class Api:
         self.check_response_validity(response)
         my_world_location = json.loads(response.text)['world']
         my_state = json.loads(response.text)['state']
-        return my_world_location, my_state
+        return my_world_location
 
     def enter_world(self, worldId):
         # enter a World
@@ -72,7 +72,7 @@ class Api:
         reward = json.loads(response.text)['reward']
         scoreIncrement = json.loads(response.text)['scoreIncrement']
         newState = json.loads(response.text)['newState']
-        return reward, scoreIncrement, newState
+        return newState, reward
 
     def get_runs(self, x):
         # get last x runs
