@@ -1,9 +1,7 @@
-import json
 from api import Api
 import numpy as np
 import pickle
 import time
-import random
 from qLearning import QLearningAgent
 
 
@@ -42,7 +40,7 @@ def traverse(api, agent):
     while True:
         print("Agent in {}".format(state))
         world = api.get_location()
-        time.sleep(5)
+        time.sleep(15)
         if world == -1:# break when exit a world
             break
         action = agent.get_action(state)
