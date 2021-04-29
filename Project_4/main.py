@@ -4,7 +4,7 @@ import pickle
 import time
 from qLearning import QLearningAgent
 
-
+# loading the visit history
 def visit_num():
     try:
         print('Checking visit history file...')
@@ -17,10 +17,12 @@ def visit_num():
         print(visit)
         return visit
 
+# storing the visit history
 def store_visit(v):
     pickle.dump(v, open('visit', 'wb'))
     print('Updating visit history')
 
+# decide which world for entering
 def decide_world(v):
     world = 1
     visited = v[world]
@@ -30,6 +32,7 @@ def decide_world(v):
             visited = v[i]
     return world
 
+# traverse a world until exit
 def traverse(api, agent):
     # Locating agent and current state
     state, _ = api.make_move('', agent.world)
@@ -57,6 +60,7 @@ def traverse(api, agent):
 if __name__ == "__main__":
     api = Api(1077, 1287)
     visit = visit_num()
+    # enter each world for 5 times
     for i in range(50):
         current_world = int(api.get_location())
         print(current_world)
