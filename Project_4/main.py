@@ -7,18 +7,6 @@ import random
 from qLearning import QLearningAgent
 
 
-
-'''
-q_table = np.array(np.zeros([2, 2, 4]))
-print(q_table)
-print(filename)
-pickle.dump(q_table, open(file_dir+filename, 'wb'))
-print('File created successfully.')
-pklfile=open(file_dir+filename,'rb')
-q_table_new = pickle.load(pklfile)
-print('new\n')
-print(q_table_new)
-'''
 def visit_num():
     try:
         print('Checking visit history file...')
