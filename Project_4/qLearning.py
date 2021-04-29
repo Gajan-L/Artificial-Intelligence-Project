@@ -11,7 +11,8 @@ class QLearningAgent:
         self.epsilon = 0.1
         self.world = world
         self.q_table = self.load_qtable()
-
+    
+    # the learing function
     def learn(self, state, action, reward, next_state):
         current_q = self.q_table[state[0]][state[1]][action]
         new_q = reward + self.discount_factor * max(self.q_table[next_state[0]][next_state[1]])
@@ -19,7 +20,7 @@ class QLearningAgent:
         print(self.q_table[state[0]][state[1]])
         self.store_qtable()
 
-
+    # loading qtable fime
     def load_qtable(self):
         try:
             print('Checking for q-table of world {} file'.format(self.world))
@@ -35,13 +36,16 @@ class QLearningAgent:
             pickle.dump(q_table, open(file_dir + filename, 'wb'))
             print('Q-table file of world {} created successfully.'.format(self.world))
             return q_table
-
+    
+    # storing qtable file
     def store_qtable(self):
         q_table = self.q_table
         filename = 'q_table{}.pkl'.format(self.world)
         pickle.dump(q_table, open(file_dir + filename, 'wb'))
         print('Updating Q-table of world {}'.format(self.world))
-
+    
+    # avoid the action that will hit the wall
+    # it returns a list of actions that are valid 
     def avoid_hitting_wall(self,state):
         valid_action = [0, 1, 2, 3]
         if state[0] == 0:
@@ -58,7 +62,7 @@ class QLearningAgent:
             valid_action.remove(0)
         return valid_action
 
-
+    # get next action
     def get_action(self, state):
         valid_action = self.avoid_hitting_wall(state)
         if np.random.rand() < self.epsilon:
