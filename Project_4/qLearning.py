@@ -1,13 +1,11 @@
 import random
 import numpy as np
-from api import Api
 import pickle
-import time
 file_dir = './q_table/'
 
 class QLearningAgent:
     def __init__(self, world):
-        self.actions = ['N', 'S', 'W', 'E']
+        self.actions = ['N', 'S', 'E', 'W']
         self.learning_rate = 0.01
         self.discount_factor = 0.9
         self.epsilon = 0.1
@@ -44,40 +42,43 @@ class QLearningAgent:
         pickle.dump(q_table, open(file_dir + filename, 'wb'))
         print('Updating Q-table of world {}'.format(self.world))
 
+    def avoid_hitting_wall(self,state):
+        valid_action = [0, 1, 2, 3]
+        if state[0] == 0:
+            # avoid go west
+            valid_action.remove(3)
+        if state[0] == 39:
+            # avoid go east
+            valid_action.remove(2)
+        if state[1] == 0:
+            # avoid go south
+            valid_action.remove(1)
+        if state[1] == 39:
+            # avoid go north
+            valid_action.remove(0)
+        return valid_action
+
+
     def get_action(self, state):
+        valid_action = self.avoid_hitting_wall(state)
         if np.random.rand() < self.epsilon:
             # random explore
-            action = np.random.choice(len(self.actions))
+            action = np.random.choice(valid_action)
         else:
             # choosing action from q-table
-            state_action = self.q_table[state[0]][state[1]]
-            action = self.arg_max(state_action)
+            state_table = self.q_table[state[0]][state[1]]
+            action = self.arg_max(state_table, valid_action)
         return action
 
     @staticmethod
-    def arg_max(state_action):
+    def arg_max(state_table, valid_action):
         max_index_list = []
-        max_value = state_action[0]
-        for index, value in enumerate(state_action):
-            if value > max_value:
+        max_value = state_table[valid_action[0]]
+        for index in valid_action:
+            if state_table[index] > max_value:
                 max_index_list.clear()
-                max_value = value
+                max_value = state_table[index]
                 max_index_list.append(index)
-            elif value == max_value:
+            elif state_table[index] == max_value:
                 max_index_list.append(index)
-
         return random.choice(max_index_list)
-
-'''
-api = Api(1077, 1287)
-q_table = np.array(np.zeros([40, 40, 4]))
-world = api.get_location()
-print(world)
-agent = QLearningAgent(q_table)
-reward, state = api.make_move('', world)
-stateX = int(state['x'])
-stateY = int(state['y'])
-state = [stateX, stateY]
-print(state)
-action = agent.get_action(state)
-'''
